@@ -4,6 +4,7 @@ import TotalCost from "./TotalCost";
 import { useSelector, useDispatch } from "react-redux";
 import { incrementQuantity, decrementQuantity } from "./venueSlice";
 import { incrementAvQuantity, decrementAvQuantity } from "./avSlice";
+import { toggleMealSelection } from "./mealsSlice";
 
 const ConferenceEvent = () => {
     const [showItems, setShowItems] = useState(false);
@@ -70,6 +71,12 @@ const ConferenceEvent = () => {
          avItems.forEach((item) => {
           totalCost += item.cost * item.quantity;
          }); 
+        } else if (section === "meals") {
+          mealsItems.forEach((item) => {
+            if (item.selected) {
+              totalCost += item.cost * numberOfPeople;
+            }
+          })
         }
         return totalCost;
       };
